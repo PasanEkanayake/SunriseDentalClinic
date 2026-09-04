@@ -1,0 +1,33 @@
+</div>
+
+<footer class="mt-auto py-4 border-top">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 text-muted small">
+            <div>
+                &copy; <%= java.time.Year.now() %> <span class="fw-semibold text-dark">Sunrise Dental Clinic</span> &middot; Appointment &amp; Patient Management System
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 fw-medium">
+                    <i class="bi bi-check-circle-fill me-1"></i> System Online
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var links = document.querySelectorAll('#mainNavLinks .nav-link[data-path]');
+        var currentPath = window.location.pathname;
+        
+        links.forEach(function (link) {
+            var path = link.getAttribute('data-path');
+            if (path && currentPath.indexOf(path) !== -1) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

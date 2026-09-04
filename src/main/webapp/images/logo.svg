@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Sunrise Dental Clinic logo">
+    <!-- Badge background -->
+    <circle cx="50" cy="50" r="48" fill="#0d7377"/>
+    <circle cx="50" cy="50" r="48" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.35"/>
+
+    <!-- Sunrise rays -->
+    <g stroke="#f5b942" stroke-width="3.2" stroke-linecap="round">
+        <line x1="50" y1="9"  x2="50" y2="19"/>
+        <line x1="28" y1="15" x2="33" y2="23"/>
+        <line x1="72" y1="15" x2="67" y2="23"/>
+        <line x1="13" y1="32" x2="22" y2="36"/>
+        <line x1="87" y1="32" x2="78" y2="36"/>
+    </g>
+
+    <!-- Simplified tooth silhouette -->
+    <path d="M38,44
+             C34,31 40,25 50,25
+             C60,25 66,31 62,44
+             C61,52 63,59 60,68
+             C59,72 55,72 54,65
+             C53,59 47,59 46,65
+             C45,72 41,72 40,68
+             C37,59 39,52 38,44 Z"
+          fill="#ffffff"/>
+</svg>

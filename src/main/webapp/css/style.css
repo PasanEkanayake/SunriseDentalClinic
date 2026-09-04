@@ -1,0 +1,383 @@
+:root {
+    --clinic-teal: #0d7377;
+    --clinic-teal-dark: #0a5c60;
+    --clinic-light: #eafaf9;
+}
+
+body {
+    background-color: #f4f7f8;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+.app-navbar {
+    background-color: var(--clinic-teal);
+}
+
+.app-navbar .nav-link {
+    color: rgba(255,255,255,0.9);
+}
+.app-navbar .nav-link:hover {
+    color: #ffffff;
+}
+
+.nav-underline {
+    position: relative;
+}
+.nav-underline::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transition: all 0.25s ease;
+    transform: translateX(-50%);
+}
+.nav-underline:hover::after {
+    width: 70%;
+}
+.active-nav-link {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+.active-nav-link::after {
+    width: 70%;
+}
+
+@media (hover: hover) {
+    .hover-dropdown:hover > .dropdown-menu {
+        display: block;
+        margin-top: 0;
+        animation: dropdownFade 0.15s ease;
+    }
+}
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.dropdown-item:hover {
+    background-color: var(--clinic-light);
+    color: var(--clinic-teal-dark);
+}
+
+.profile-dropdown .dropdown-toggle::after {
+    color: #fff;
+}
+.avatar-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: var(--clinic-teal);
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: transform 0.2s ease;
+}
+.profile-dropdown:hover .avatar-circle {
+    transform: scale(1.1);
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.card-header-clinic {
+    background-color: var(--clinic-teal);
+    color: #fff;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+    font-weight: 600;
+}
+
+.btn-clinic {
+    background-color: var(--clinic-teal);
+    border-color: var(--clinic-teal);
+    color: #fff;
+}
+.btn-clinic:hover {
+    background-color: var(--clinic-teal-dark);
+    border-color: var(--clinic-teal-dark);
+    color: #fff;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--clinic-teal), var(--clinic-teal-dark));
+    color: #fff;
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(13,115,119,0.35);
+}
+
+.quick-action-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+.quick-action-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+.quick-action-card .quick-action-icon {
+    transition: transform 0.2s ease;
+}
+.quick-action-card:hover .quick-action-icon {
+    transform: scale(1.15);
+}
+.quick-action-card .quick-action-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translate(12px, -50%);
+    opacity: 0;
+    transition: all 0.2s ease;
+    color: var(--clinic-teal);
+    font-size: 1.25rem;
+}
+.quick-action-card:hover .quick-action-arrow {
+    transform: translate(0, -50%);
+    opacity: 1;
+}
+
+.hover-actions-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+.hover-actions-table .row-actions {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.hover-actions-table tbody tr:hover .row-actions {
+    opacity: 1;
+}
+
+.badge-status-SCHEDULED { background-color: #0d6efd; }
+.badge-status-COMPLETED { background-color: #198754; }
+.badge-status-CANCELLED { background-color: #6c757d; }
+
+.badge-active { background-color: #198754; }
+.badge-inactive { background-color: #adb5bd; }
+
+.hover-actions-table .toggle-btn {
+    transition: transform 0.15s ease;
+}
+.hover-actions-table .toggle-btn:hover {
+    transform: scale(1.08);
+}
+
+.appointment-no-highlight {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--clinic-teal);
+}
+
+@media print {
+    .app-navbar, .no-print, footer, .navbar { display: none !important; }
+    body { background: #fff !important; }
+    .container { width: 100% !important; max-width: 100% !important; }
+    .card { box-shadow: none !important; border: 1px solid #999 !important; }
+}
+
+.public-site {
+    scroll-behavior: smooth;
+}
+html {
+    scroll-behavior: smooth;
+}
+.scroll-mt {
+    scroll-margin-top: 80px; /* keeps anchored sections from hiding under the sticky navbar */
+}
+
+.public-navbar {
+    background-color: var(--clinic-teal);
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+.public-navbar .navbar-brand {
+    color: #ffffff;
+    font-size: 1.15rem;
+}
+.public-navbar .nav-link {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+}
+.public-navbar .nav-link:hover {
+    color: #ffffff;
+}
+
+/* Hero */
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--clinic-teal-dark), var(--clinic-teal) 60%, #14929a);
+    overflow: hidden;
+}
+.hero-badge {
+    background-color: rgba(255,255,255,0.15);
+    color: #ffffff;
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+}
+.hero-accent {
+    color: #f5b942;
+}
+.hero-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    margin: 0 auto;
+}
+.hero-logo-img {
+    width: 220px;
+    height: 220px;
+    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.25));
+    animation: heroFloat 4s ease-in-out infinite;
+}
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+.hero-wave {
+    position: relative;
+    margin-top: -6px;
+    line-height: 0;
+}
+.hero-wave svg {
+    width: 100%;
+    height: 60px;
+    display: block;
+}
+
+/* Section headings */
+.bg-light-subtle {
+    background-color: #eef4f4;
+}
+.section-eyebrow {
+    display: inline-block;
+    color: var(--clinic-teal);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Services */
+.service-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-top: 3px solid transparent;
+}
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.1);
+    border-top-color: var(--clinic-teal);
+}
+.service-icon {
+    font-size: 2rem;
+    color: var(--clinic-teal);
+}
+.service-price {
+    color: var(--clinic-teal-dark);
+}
+
+/* Dentists */
+.dentist-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.dentist-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.1);
+}
+.dentist-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--clinic-light);
+    color: var(--clinic-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: transform 0.2s ease;
+}
+.dentist-card:hover .dentist-avatar {
+    transform: scale(1.1);
+}
+
+/* Why Us feature boxes */
+.feature-box {
+    transition: transform 0.2s ease;
+    border-radius: 0.75rem;
+}
+.feature-box:hover {
+    transform: translateY(-4px);
+}
+.feature-icon {
+    font-size: 2.2rem;
+    color: var(--clinic-teal);
+}
+
+/* Testimonials */
+.testimonial-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.1);
+}
+.quote-icon {
+    font-size: 1.75rem;
+    color: var(--clinic-light);
+    -webkit-text-stroke: 1px var(--clinic-teal);
+}
+
+/* Contact */
+.contact-section {
+    background: linear-gradient(135deg, var(--clinic-teal-dark), var(--clinic-teal));
+}
+.contact-info-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 0.75rem;
+    color: #ffffff;
+}
+.contact-info-card a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+.contact-icon {
+    font-size: 1.4rem;
+    color: #f5b942;
+    margin-top: 3px;
+}
+
+/* Footer */
+.public-footer {
+    background-color: #08303a;
+}
+.footer-link {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+.footer-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+
