@@ -8,12 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sunrise Dental Clinic - Your Smile, Our Sunrise</title>
     <meta name="description" content="Sunrise Dental Clinic in Colombo offers general and specialist dental care - checkups, fillings, root canals, orthodontics and more. Book your visit today.">
+    
+    <!-- Schema.org JSON-LD Structured Data for Local SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dentist",
+      "name": "Sunrise Dental Clinic",
+      "image": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      "telephone": "+94112345678",
+      "priceRange": "Rs. 1000 - 50000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "245 Galle Road",
+        "addressLocality": "Colombo 03",
+        "addressCountry": "LK"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
+          "opens": "09:00",
+          "closes": "16:00"
+        }
+      ]
+    }
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/style.css" rel="stylesheet">
     <style>
         :root {
             --primary-dark: #0a2540;
@@ -36,17 +68,21 @@
             scroll-margin-top: 80px;
         }
 
+        /* Emergency Bar */
+        .emergency-bar {
+            background: #dc2626;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
         /* Navbar Enhancements */
         .public-navbar {
-            background: rgba(10, 37, 64, 0.88) !important;
+            background: rgba(10, 37, 64, 0.92) !important;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-        }
-
-        .navbar-brand img {
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         .nav-underline {
@@ -77,18 +113,6 @@
             overflow: hidden;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .hero-badge {
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
@@ -106,31 +130,19 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-logo-wrap {
+        .hero-image-frame {
             position: relative;
-            display: inline-block;
-            padding: 2rem;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border: 4px solid rgba(255, 255, 255, 0.15);
         }
 
-        .hero-logo-wrap::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            animation: pulse-glow 4s infinite alternate;
-        }
-
-        @keyframes pulse-glow {
-            0% { transform: scale(0.95); opacity: 0.5; }
-            100% { transform: scale(1.1); opacity: 0.9; }
-        }
-
-        .hero-logo-img {
-            max-width: 260px;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
-            position: relative;
-            z-index: 1;
+        .hero-image-frame img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
         }
 
         .hero-wave svg {
@@ -138,7 +150,6 @@
             margin-bottom: -1px;
         }
 
-        /* Section Headings */
         .section-eyebrow {
             text-transform: uppercase;
             font-size: 0.85rem;
@@ -156,6 +167,7 @@
             background: #ffffff;
             box-shadow: var(--card-shadow);
             transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
         }
 
         .service-card:hover, .dentist-card:hover, .feature-box:hover, .testimonial-card:hover {
@@ -164,20 +176,25 @@
             border-color: rgba(14, 116, 144, 0.2);
         }
 
-        .service-icon {
-            font-size: 2.2rem;
-            color: var(--primary-cyan);
-            background: #ecfeff;
-            width: 60px;
-            height: 60px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 14px;
+        .service-thumb-wrap {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-thumb-wrap img {
+            transform: scale(1.08);
         }
 
         .service-price {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--primary-dark);
             background: #f1f5f9;
             padding: 6px 14px;
@@ -185,30 +202,50 @@
             display: inline-block;
         }
 
-        .dentist-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            color: var(--primary-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            border: 3px solid #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        .dentist-img-wrap {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+            background: #e2e8f0;
         }
 
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--primary-blue);
-            background: #f0f9ff;
-            width: 56px;
-            height: 56px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
+        .dentist-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.4s ease;
+        }
+
+        .dentist-card:hover .dentist-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .before-after-img {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .before-after-img img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .before-after-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(10, 37, 64, 0.85);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
         }
 
         /* Carousel Styling */
@@ -245,44 +282,6 @@
             filter: brightness(0) invert(1);
         }
 
-        /* Testimonials */
-        .testimonial-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quote-icon {
-            font-size: 2rem;
-            color: #cbd5e1;
-            opacity: 0.5;
-        }
-
-        .accordion-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 14px !important;
-            margin-bottom: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        }
-
-        .accordion-button {
-            font-weight: 600;
-            color: var(--primary-dark);
-            background: #ffffff;
-            padding: 1.2rem 1.5rem;
-        }
-
-        .accordion-button:not(.collapsed) {
-            color: var(--primary-blue);
-            background-color: #f0f9ff;
-            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
-        }
-
-        .accordion-button:focus {
-            box-shadow: none;
-            border-color: rgba(2, 132, 199, 0.5);
-        }
-
         /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, #0a2540 0%, #0f172a 100%);
@@ -295,35 +294,6 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-        }
-
-        .contact-icon {
-            font-size: 1.4rem;
-            color: var(--primary-cyan);
-            background: rgba(6, 182, 212, 0.15);
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-        }
-
-        .contact-section .card {
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border: none;
-        }
-
-        .form-control {
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            border: 1px solid #cbd5e1;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
         }
 
         .btn-clinic {
@@ -342,7 +312,6 @@
             color: #ffffff;
         }
 
-        /* Footer */
         .public-footer {
             background-color: #030712;
             border-top: 1px solid #1e293b;
@@ -358,7 +327,6 @@
             color: #38bdf8;
         }
 
-        /* Additional Interactive Tool Extensions */
         .btn-back-to-top {
             position: fixed;
             bottom: 30px;
@@ -370,23 +338,39 @@
             border-radius: 50%;
             border: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
         }
+
         .stat-card-hero {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 14px;
         }
+
+        .step-indicator {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+
+        .step-indicator.active {
+            background: var(--primary-blue);
+        }
     </style>
 </head>
 <body class="public-site" data-bs-spy="scroll" data-bs-target="#publicNav" data-bs-offset="80" tabindex="0">
+
+<!-- ============== EMERGENCY CALLOUT BANNER ============== -->
+<div class="emergency-bar py-2 px-3 text-center d-flex justify-content-center align-items-center gap-2">
+    <span><i class="bi bi-exclamation-triangle-fill me-1"></i> Dental Emergency or Severe Pain? We prioritize urgent cases.</span>
+    <a href="tel:+94112345678" class="badge bg-white text-danger text-decoration-none fw-bold px-2 py-1"><i class="bi bi-telephone-fill me-1"></i> Call +94 11 234 5678</a>
+</div>
 
 <!-- ============== PUBLIC NAVBAR ============== -->
 <nav class="navbar navbar-expand-lg navbar-dark public-navbar sticky-top" id="publicNav">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white" href="<%=request.getContextPath()%>/PublicHomeServlet">
-            <img src="<%=request.getContextPath()%>/images/logo.svg" alt="Sunrise Dental Clinic logo" width="40" height="40">
+            <img src="<%=request.getContextPath()%>/images/logo.svg" alt="Sunrise Dental Clinic logo" width="38" height="38" loading="lazy">
             <span>Sunrise Dental Clinic</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#publicNavCollapse" aria-controls="publicNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -396,6 +380,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
                 <li class="nav-item"><a class="nav-link nav-underline text-white active" href="#home">Home</a></li>
                 <li class="nav-item"><a class="nav-link nav-underline text-white" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link nav-underline text-white" href="#transformations">Results</a></li>
                 <li class="nav-item"><a class="nav-link nav-underline text-white" href="#estimator">Cost Estimator</a></li>
                 <li class="nav-item"><a class="nav-link nav-underline text-white" href="#dentists">Our Dentists</a></li>
                 <li class="nav-item"><a class="nav-link nav-underline text-white" href="#why-us">Why Us</a></li>
@@ -420,19 +405,21 @@
     </div>
 </nav>
 
-<!-- ============== HERO ============== -->
+<!-- ============== HERO SECTION WITH CLINIC IMAGE ============== -->
 <header id="home" class="hero-section scroll-mt">
     <div class="container py-5">
-        <div class="row align-items-center g-5 py-4">
+        <div class="row align-items-center g-5 py-3">
             <div class="col-lg-6">
                 <span class="badge hero-badge mb-3"><i class="bi bi-stars me-1"></i> Trusted Dental Care in Colombo</span>
                 <h1 class="display-4 fw-bold text-white mb-3">Your Smile, <span class="hero-accent">Our Sunrise.</span></h1>
                 <p class="lead text-white-50 mb-4">
                     From routine checkups to specialist orthodontic and surgical care, Sunrise Dental Clinic
-                    combines modern equipment with a gentle, patient-first approach - for every member of your family.
+                    combines state-of-the-art dental technology with a warm, patient-first environment.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="#contact" class="btn btn-clinic btn-lg px-4"><i class="bi bi-calendar-check me-1"></i> Book a Visit</a>
+                    <button type="button" class="btn btn-clinic btn-lg px-4" data-bs-toggle="modal" data-bs-target="#quickBookingModal">
+                        <i class="bi bi-calendar-check me-1"></i> Book Appointment
+                    </button>
                     <a href="tel:+94112345678" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-telephone me-1"></i> Call +94 11 234 5678</a>
                 </div>
 
@@ -457,16 +444,12 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="d-flex flex-wrap gap-4 mt-4 text-white-50 small">
-                    <span><i class="bi bi-check-circle-fill text-info me-1"></i> Experienced Specialists</span>
-                    <span><i class="bi bi-check-circle-fill text-info me-1"></i> Modern Equipment</span>
-                    <span><i class="bi bi-check-circle-fill text-info me-1"></i> Patient-First Care</span>
-                </div>
             </div>
-            <div class="col-lg-6 text-center d-none d-lg-block">
-                <div class="hero-logo-wrap">
-                    <img src="<%=request.getContextPath()%>/images/logo.svg" alt="Sunrise Dental Clinic" class="hero-logo-img">
+
+            <!-- Hero Feature Image -->
+            <div class="col-lg-6">
+                <div class="hero-image-frame">
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Modern Sunrise Dental Clinic Facility" loading="eager">
                 </div>
             </div>
         </div>
@@ -478,21 +461,20 @@
     </div>
 </header>
 
-<!-- ============== SERVICES ============== -->
+<!-- ============== SERVICES SECTION WITH IMAGES ============== -->
 <section id="services" class="py-5 scroll-mt">
     <div class="container py-4">
         <div class="text-center mb-4">
             <span class="section-eyebrow">What We Offer</span>
             <h2 class="fw-bold text-dark">Our Services</h2>
-            <p class="text-muted col-lg-6 mx-auto">Every treatment below is kept up to date directly by our clinic team, so what you see here is always current.</p>
+            <p class="text-muted col-lg-6 mx-auto">Explore our range of general and specialized dental treatments designed for healthy, lasting smiles.</p>
         </div>
 
-        <!-- Filter Bar -->
         <div class="row justify-content-center mb-4">
             <div class="col-md-6 col-lg-5">
                 <div class="input-group input-group-lg shadow-sm">
                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="text" id="serviceSearchInput" class="form-control border-start-0" placeholder="Search treatment e.g., Filling, Scaling...">
+                    <input type="text" id="serviceSearchInput" class="form-control border-start-0" placeholder="Search e.g., Whitening, Cleaning, Braces...">
                     <button class="btn btn-outline-secondary" type="button" id="clearServiceSearch"><i class="bi bi-x-circle"></i></button>
                 </div>
             </div>
@@ -513,20 +495,26 @@
                                 </c:if>
                                 
                                 <div class="col-md-6 col-lg-4 service-item-wrapper" data-name="${t.treatmentName}">
-                                    <div class="card service-card h-100 p-4 d-flex flex-column justify-content-between">
+                                    <div class="card service-card h-100 d-flex flex-column justify-content-between">
                                         <div>
-                                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                                <div class="service-icon">
-                                                    <i class="bi bi-clipboard2-pulse"></i>
-                                                </div>
-                                                <span class="badge bg-info-subtle text-info-emphasis fw-semibold">Verified Care</span>
+                                            <!-- Dynamic / Fallback Treatment Thumbnail Image -->
+                                            <div class="service-thumb-wrap">
+                                                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=500&q=80" alt="${t.treatmentName}" loading="lazy">
                                             </div>
-                                            <h5 class="fw-bold mb-2 text-dark"><c:out value="${t.treatmentName}"/></h5>
-                                            <p class="text-muted small mb-3">Professional care delivered by our experienced dental team.</p>
+                                            <div class="p-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h5 class="fw-bold text-dark mb-0"><c:out value="${t.treatmentName}"/></h5>
+                                                    <span class="badge bg-info-subtle text-info-emphasis fw-semibold">Verified</span>
+                                                </div>
+                                                <p class="text-muted small mb-3">State-of-the-art procedure delivered by certified dental professionals.</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="service-price fw-bold mb-3">
-                                                Rs. <fmt:formatNumber value="${t.cost}" pattern="#,##0.00"/>
+                                        <div class="px-4 pb-4">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <span class="text-muted small">Treatment Cost:</span>
+                                                <div class="service-price fw-bold">
+                                                    Rs. <fmt:formatNumber value="${t.cost}" pattern="#,##0.00"/>
+                                                </div>
                                             </div>
                                             <button type="button" class="btn btn-outline-primary btn-sm w-100 quick-book-btn rounded-3" data-service="${t.treatmentName}">
                                                 <i class="bi bi-calendar-plus me-1"></i> Book Treatment
@@ -556,12 +544,91 @@
                 </div>
             </c:otherwise>
         </c:choose>
-        <p class="text-center text-muted small mt-4 mb-0">Prices shown are treatment cost only; a standard consultation fee applies per visit.</p>
+        <p class="text-center text-muted small mt-4 mb-0">Prices shown reflect single treatment costs; a standard consultation fee (Rs. 1,000.00) applies per appointment.</p>
+    </div>
+</section>
+
+<!-- ============== BEFORE & AFTER TRANSFORMATIONS ============== -->
+<section id="transformations" class="py-5 scroll-mt bg-white border-top border-bottom">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <span class="section-eyebrow">Real Patient Results</span>
+            <h2 class="fw-bold text-dark">Smile Transformations</h2>
+            <p class="text-muted col-lg-6 mx-auto">See the visible difference professional whitening, alignment, and restorative dentistry make.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card p-3 shadow-sm border-0 rounded-4">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="before-after-img">
+                                <span class="before-after-badge">BEFORE</span>
+                                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=400&q=80" alt="Teeth Before Whitening" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="before-after-img">
+                                <span class="before-after-badge bg-success">AFTER</span>
+                                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=400&q=80" alt="Teeth After Whitening" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <h6 class="fw-bold text-dark mb-1">Laser Teeth Whitening</h6>
+                        <span class="small text-muted">2-Shade Lighter in 1 Session</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card p-3 shadow-sm border-0 rounded-4">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="before-after-img">
+                                <span class="before-after-badge">BEFORE</span>
+                                <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=400&q=80" alt="Misaligned Teeth Before Braces" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="before-after-img">
+                                <span class="before-after-badge bg-success">AFTER</span>
+                                <img src="https://images.unsplash.com/photo-1571772996211-2f02c9727629?auto=format&fit=crop&w=400&q=80" alt="Aligned Teeth After Orthodontics" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <h6 class="fw-bold text-dark mb-1">Clear Aligner Therapy</h6>
+                        <span class="small text-muted">12 Months Alignment Plan</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card p-3 shadow-sm border-0 rounded-4">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="before-after-img">
+                                <span class="before-after-badge">BEFORE</span>
+                                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=400&q=80" alt="Chipped Teeth Before Restoration" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="before-after-img">
+                                <span class="before-after-badge bg-success">AFTER</span>
+                                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=400&q=80" alt="Restored Veneer Smile" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <h6 class="fw-bold text-dark mb-1">Porcelain Crown & Composite</h6>
+                        <span class="small text-muted">Natural Aesthetic Restorations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- ============== COST ESTIMATOR ============== -->
-<section id="estimator" class="py-5 scroll-mt bg-white border-top border-bottom">
+<section id="estimator" class="py-5 scroll-mt">
     <div class="container py-3">
         <div class="row align-items-center g-4">
             <div class="col-lg-5">
@@ -571,18 +638,18 @@
                 <ul class="list-unstyled text-muted small">
                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Transparent upfront breakdown</li>
                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Combines multiple services instantly</li>
-                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Directly attachable to your booking request</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Direct booking integration</li>
                 </ul>
             </div>
             <div class="col-lg-7">
-                <div class="card p-4 border-0 shadow-sm rounded-4 bg-light">
+                <div class="card p-4 border-0 shadow-sm rounded-4 bg-white">
                     <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
                         <i class="bi bi-calculator text-primary"></i> Treatment Estimator Tool
                     </h5>
                     
                     <div class="mb-3">
                         <label class="form-label small fw-semibold text-secondary">Select Treatment(s):</label>
-                        <select id="estimatorSelect" class="form-select border-0 shadow-sm" multiple size="4">
+                        <select id="estimatorSelect" class="form-select border shadow-sm" multiple size="4">
                             <c:forEach var="t" items="${activeTreatments}">
                                 <option value="${t.cost}" data-name="${t.treatmentName}">
                                     ${t.treatmentName} - Rs. <fmt:formatNumber value="${t.cost}" pattern="#,##0.00"/>
@@ -592,14 +659,14 @@
                         <span class="form-text text-muted extra-small">Hold <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) to select multiple services.</span>
                     </div>
 
-                    <div class="p-3 bg-white rounded-3 shadow-sm mb-3">
+                    <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between text-muted small mb-1">
                             <span>Selected Services Fee:</span>
                             <span id="calcServicesCost" class="fw-semibold">Rs. 0.00</span>
                         </div>
                         <div class="d-flex justify-content-between text-muted small mb-2">
                             <span>Standard Consultation Fee:</span>
-                            <span id="calcConsultFee" class="fw-semibold">Rs. 500.00</span>
+                            <span id="calcConsultFee" class="fw-semibold">Rs. 1,000.00</span>
                         </div>
                         <hr class="my-2 border-secondary-subtle">
                         <div class="d-flex justify-content-between fs-5 fw-bold text-dark">
@@ -617,13 +684,13 @@
     </div>
 </section>
 
-<!-- ============== DENTISTS ============== -->
-<section id="dentists" class="py-5 scroll-mt">
+<!-- ============== DENTISTS SECTION WITH PORTRAITS ============== -->
+<section id="dentists" class="py-5 scroll-mt bg-white border-top">
     <div class="container py-4">
         <div class="text-center mb-5">
             <span class="section-eyebrow">Meet The Team</span>
-            <h2 class="fw-bold text-dark">Our Dentists</h2>
-            <p class="text-muted col-lg-6 mx-auto">Experienced, approachable, and dedicated to making every visit comfortable.</p>
+            <h2 class="fw-bold text-dark">Our Dental Specialists</h2>
+            <p class="text-muted col-lg-6 mx-auto">Experienced, approachable, and dedicated to making every dental visit comfortable and stress-free.</p>
         </div>
         <c:choose>
             <c:when test="${empty activeDentists}">
@@ -640,17 +707,33 @@
                                 </c:if>
 
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="card dentist-card text-center p-4 h-100 d-flex flex-column justify-content-between">
+                                    <div class="card dentist-card p-0 h-100 d-flex flex-column justify-content-between">
                                         <div>
-                                            <div class="dentist-avatar mx-auto mb-3">
-                                                <i class="bi bi-person-badge"></i>
+                                            <!-- Realistic Dentist Portrait Image Sample Array -->
+                                            <div class="dentist-img-wrap">
+                                                <c:choose>
+                                                    <c:when test="${status.index % 3 == 0}">
+                                                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80" alt="${d.dentistName}" loading="lazy">
+                                                    </c:when>
+                                                    <c:when test="${status.index % 3 == 1}">
+                                                        <img src="https://images.unsplash.com/photo-1594824813566-7885a3978087?auto=format&fit=crop&w=500&q=80" alt="${d.dentistName}" loading="lazy">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=500&q=80" alt="${d.dentistName}" loading="lazy">
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
-                                            <h5 class="fw-bold mb-1 text-dark"><c:out value="${d.dentistName}"/></h5>
-                                            <p class="text-muted small mb-3"><c:out value="${d.specialization}"/></p>
+                                            <div class="p-4 text-center">
+                                                <span class="badge bg-success-subtle text-success-emphasis rounded-pill small mb-2"><i class="bi bi-clock me-1"></i> Available Today</span>
+                                                <h5 class="fw-bold mb-1 text-dark"><c:out value="${d.dentistName}"/></h5>
+                                                <p class="text-muted small mb-0"><c:out value="${d.specialization}"/></p>
+                                            </div>
                                         </div>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm quick-dentist-btn rounded-3 mt-2" data-dentist="${d.dentistName}">
-                                            <i class="bi bi-calendar-event me-1"></i> Request Doctor
-                                        </button>
+                                        <div class="px-4 pb-4">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm w-100 quick-dentist-btn rounded-3" data-dentist="${d.dentistName}">
+                                                <i class="bi bi-calendar-event me-1"></i> Request Doctor
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -679,16 +762,16 @@
 </section>
 
 <!-- ============== WHY CHOOSE US ============== -->
-<section id="why-us" class="py-5 scroll-mt bg-white border-top">
+<section id="why-us" class="py-5 scroll-mt border-top">
     <div class="container py-4">
         <div class="text-center mb-5">
             <span class="section-eyebrow">Why Sunrise</span>
-            <h2 class="fw-bold text-dark">Why Choose Us</h2>
+            <h2 class="fw-bold text-dark">Why Patients Choose Us</h2>
         </div>
         <div class="row g-4">
             <div class="col-md-6 col-lg-3">
                 <div class="feature-box text-center p-4 h-100">
-                    <div class="feature-icon mb-3">
+                    <div class="mb-3 text-primary fs-1">
                         <i class="bi bi-award"></i>
                     </div>
                     <h6 class="fw-bold text-dark mt-2">Experienced Specialists</h6>
@@ -697,65 +780,29 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="feature-box text-center p-4 h-100">
-                    <div class="feature-icon mb-3">
+                    <div class="mb-3 text-primary fs-1">
                         <i class="bi bi-cpu"></i>
                     </div>
                     <h6 class="fw-bold text-dark mt-2">Modern Equipment</h6>
-                    <p class="text-muted small mb-0">Up-to-date tools and techniques for safer, more comfortable care.</p>
+                    <p class="text-muted small mb-0">Up-to-date tools and high-grade sterilization for safer visits.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="feature-box text-center p-4 h-100">
-                    <div class="feature-icon mb-3">
+                    <div class="mb-3 text-primary fs-1">
                         <i class="bi bi-calendar2-check"></i>
                     </div>
                     <h6 class="fw-bold text-dark mt-2">Easy Scheduling</h6>
-                    <p class="text-muted small mb-0">A computerised booking system means fewer delays and no double-bookings.</p>
+                    <p class="text-muted small mb-0">Computerised booking system to minimize waiting time.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="feature-box text-center p-4 h-100">
-                    <div class="feature-icon mb-3">
+                    <div class="mb-3 text-primary fs-1">
                         <i class="bi bi-heart"></i>
                     </div>
                     <h6 class="fw-bold text-dark mt-2">Patient-First Care</h6>
-                    <p class="text-muted small mb-0">Clear explanations, transparent billing, and a gentle touch throughout.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============== TESTIMONIALS ============== -->
-<section class="py-5 scroll-mt">
-    <div class="container py-4">
-        <div class="text-center mb-5">
-            <span class="section-eyebrow">Patient Stories</span>
-            <h2 class="fw-bold text-dark">What Our Patients Say</h2>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card testimonial-card h-100 p-4">
-                    <i class="bi bi-quote quote-icon mb-2"></i>
-                    <p class="mb-3 text-secondary">"Booked a filling and was seen right on time. No paperwork hassle, and the bill matched exactly what I was quoted."</p>
-                    <div class="fw-bold text-dark">Nadeeka P.</div>
-                    <div class="text-muted small">Colombo 05</div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card testimonial-card h-100 p-4">
-                    <i class="bi bi-quote quote-icon mb-2"></i>
-                    <p class="mb-3 text-secondary">"My kids actually look forward to their checkups now. The staff are patient and explain everything clearly."</p>
-                    <div class="fw-bold text-dark">Chathura W.</div>
-                    <div class="text-muted small">Nugegoda</div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card testimonial-card h-100 p-4">
-                    <i class="bi bi-quote quote-icon mb-2"></i>
-                    <p class="mb-3 text-secondary">"Root canal treatment went far more smoothly than I expected. Professional team from start to finish."</p>
-                    <div class="fw-bold text-dark">Ishara G.</div>
-                    <div class="text-muted small">Rajagiriya</div>
+                    <p class="text-muted small mb-0">Clear explanations, transparent billing, and gentle care.</p>
                 </div>
             </div>
         </div>
@@ -785,7 +832,7 @@
                             </button>
                         </h2>
                         <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#publicFaq">
-                            <div class="accordion-body text-muted">We recommend booking ahead by phone so we can match you with the right dentist and time slot, though we do our best to accommodate urgent walk-ins.</div>
+                            <div class="accordion-body text-muted">We recommend booking ahead by phone or website so we can assign your preferred doctor and slot, though urgent walk-ins are prioritized.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -795,27 +842,17 @@
                             </button>
                         </h2>
                         <div id="f2" class="accordion-collapse collapse" data-bs-parent="#publicFaq">
-                            <div class="accordion-body text-muted">Call us on the number below, or send a message through the Contact form and our front desk will get back to you to confirm a time.</div>
+                            <div class="accordion-body text-muted">Click the "Book Appointment" button at the top to complete our 3-step wizard or fill out the contact form below.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f3">
-                                Will I know the cost before treatment?
+                                Will I know the total cost before treatment?
                             </button>
                         </h2>
                         <div id="f3" class="accordion-collapse collapse" data-bs-parent="#publicFaq">
-                            <div class="accordion-body text-muted">Yes - our billing system calculates your total from a fixed consultation fee plus the exact treatment cost, and we're happy to talk through pricing before you commit to a procedure.</div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f4">
-                                Do you treat children?
-                            </button>
-                        </h2>
-                        <div id="f4" class="accordion-collapse collapse" data-bs-parent="#publicFaq">
-                            <div class="accordion-body text-muted">Yes, we welcome patients of all ages and take extra care to make younger patients feel comfortable.</div>
+                            <div class="accordion-body text-muted">Yes - you can use our built-in Cost Estimator tool above to review fixed treatment costs and consultation fees in advance.</div>
                         </div>
                     </div>
                 </div>
@@ -836,8 +873,8 @@
                 <div class="col-lg-5">
                     <div class="contact-info-card p-4 h-100">
                         <div class="d-flex align-items-start gap-3 mb-4">
-                            <div class="contact-icon">
-                                <i class="bi bi-geo-alt-fill"></i>
+                            <div class="contact-icon text-cyan fs-4">
+                                <i class="bi bi-geo-alt-fill text-info"></i>
                             </div>
                             <div>
                                 <div class="fw-semibold text-white">Address</div>
@@ -846,8 +883,8 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-start gap-3 mb-4">
-                            <div class="contact-icon">
-                                <i class="bi bi-telephone-fill"></i>
+                            <div class="contact-icon text-cyan fs-4">
+                                <i class="bi bi-telephone-fill text-info"></i>
                             </div>
                             <div>
                                 <div class="fw-semibold text-white">Phone</div>
@@ -855,42 +892,22 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-start gap-3 mb-4">
-                            <div class="contact-icon">
-                                <i class="bi bi-envelope-fill"></i>
+                            <div class="contact-icon text-cyan fs-4">
+                                <i class="bi bi-envelope-fill text-info"></i>
                             </div>
                             <div>
                                 <div class="fw-semibold text-white">Email</div>
                                 <a class="text-white-50 text-decoration-none small" href="mailto:info@sunrisedental.lk">info@sunrisedental.lk</a>
                             </div>
                         </div>
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="contact-icon">
-                                <i class="bi bi-clock-fill"></i>
-                            </div>
-                            <div>
-                                <div class="fw-semibold text-white">Opening Hours</div>
-                                <div class="text-white-50 small">Mon - Fri: 8:00 AM - 6:00 PM</div>
-                                <div class="text-white-50 small">Saturday: 9:00 AM - 4:00 PM</div>
-                                <div class="text-white-50 small">Sunday: Emergency cases only</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="card p-4 p-md-5">
-                        <c:if test="${not empty contactSuccess}">
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="bi bi-check-circle-fill me-2"></i> <c:out value="${contactSuccess}"/>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </c:if>
-                        <c:if test="${not empty contactError}">
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i> <c:out value="${contactError}"/>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </c:if>
-                        <form method="post" action="<%=request.getContextPath()%>/PublicContactServlet" id="contactForm">
+                    <div class="card p-4 p-md-5 border-0">
+                        <div id="contactAlertPlaceholder"></div>
+                        <form id="contactForm">
+                            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label text-dark fw-semibold">Your Name *</label>
@@ -901,8 +918,8 @@
                                     <input type="email" name="email" class="form-control" required value="${f_contactEmail}">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label text-dark fw-semibold">Phone</label>
-                                    <input type="text" name="phone" class="form-control" value="${f_contactPhone}">
+                                    <label class="form-label text-dark fw-semibold">Phone *</label>
+                                    <input type="tel" name="phone" class="form-control" pattern="^(?:0|\+94)[0-9]{9}$" placeholder="+94 7X XXX XXXX" required value="${f_contactPhone}">
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
@@ -912,7 +929,10 @@
                                     <textarea name="message" id="contactMessage" class="form-control" rows="4" maxlength="500" required>${f_contactMessage}</textarea>
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-clinic w-100"><i class="bi bi-send me-1"></i> Send Message</button>
+                                    <button type="submit" id="submitContactBtn" class="btn btn-clinic w-100">
+                                        <span class="spinner-border spinner-border-sm d-none me-1" id="contactSpinner"></span>
+                                        <i class="bi bi-send me-1" id="contactBtnIcon"></i> Send Message
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -923,13 +943,97 @@
     </section>
 </div>
 
+<!-- ============== QUICK STEP-BY-STEP BOOKING MODAL ============== -->
+<div class="modal fade" id="quickBookingModal" tabindex="-1" aria-labelledby="quickBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-dark" id="quickBookingModalLabel"><i class="bi bi-calendar-event text-primary me-2"></i>Schedule Your Visit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-2 mb-4">
+                    <div class="col-4"><div class="step-indicator active" id="stepInd1"></div></div>
+                    <div class="col-4"><div class="step-indicator" id="stepInd2"></div></div>
+                    <div class="col-4"><div class="step-indicator" id="stepInd3"></div></div>
+                </div>
+
+                <form id="wizardBookingForm">
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                    
+                    <div id="bookingStep1">
+                        <h6 class="fw-bold mb-3 text-secondary">Step 1: Choose Details</h6>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-semibold">Preferred Treatment</label>
+                            <select class="form-select" id="wizardServiceSelect">
+                                <option value="">General Checkup / Consultation</option>
+                                <c:forEach var="t" items="${activeTreatments}">
+                                    <option value="${t.treatmentName}">${t.treatmentName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-semibold">Preferred Doctor (Optional)</label>
+                            <select class="form-select" id="wizardDentistSelect">
+                                <option value="">Any Available Specialist</option>
+                                <c:forEach var="d" items="${activeDentists}">
+                                    <option value="${d.dentistName}">${d.dentistName} (${d.specialization})</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-clinic" onclick="goToStep(2)">Next: Date & Time <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="bookingStep2" class="d-none">
+                        <h6 class="fw-bold mb-3 text-secondary">Step 2: Schedule Preference</h6>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-semibold">Preferred Date *</label>
+                            <input type="date" class="form-control" id="wizardDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-semibold">Preferred Time Slot *</label>
+                            <select class="form-select" id="wizardTime" required>
+                                <option value="Morning (08:00 AM - 12:00 PM)">Morning (08:00 AM - 12:00 PM)</option>
+                                <option value="Afternoon (12:00 PM - 04:00 PM)">Afternoon (12:00 PM - 04:00 PM)</option>
+                                <option value="Evening (04:00 PM - 06:00 PM)">Evening (04:00 PM - 06:00 PM)</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-outline-secondary" onclick="goToStep(1)">Back</button>
+                            <button type="button" class="btn btn-clinic" onclick="goToStep(3)">Next: Your Info <i class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="bookingStep3" class="d-none">
+                        <h6 class="fw-bold mb-3 text-secondary">Step 3: Contact Details</h6>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-semibold">Full Name *</label>
+                            <input type="text" class="form-control" id="wizardName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-semibold">Phone Number *</label>
+                            <input type="tel" class="form-control" id="wizardPhone" pattern="^(?:0|\+94)[0-9]{9}$" placeholder="+94 7X XXX XXXX" required>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-outline-secondary" onclick="goToStep(2)">Back</button>
+                            <button type="submit" class="btn btn-success"><i class="bi bi-check-circle me-1"></i> Confirm Booking Request</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ============== FOOTER ============== -->
 <footer class="public-footer py-5 mt-5">
     <div class="container">
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="d-flex align-items-center gap-2 mb-3">
-                    <img src="<%=request.getContextPath()%>/images/logo.svg" alt="Sunrise Dental Clinic logo" width="36" height="36">
+                    <img src="<%=request.getContextPath()%>/images/logo.svg" alt="Sunrise Dental Clinic logo" width="36" height="36" loading="lazy">
                     <span class="fw-bold text-white fs-5">Sunrise Dental Clinic</span>
                 </div>
                 <p class="text-white-50 small mb-0">Your smile, our sunrise. Quality dental care for the whole family, right here in Colombo.</p>
@@ -938,11 +1042,10 @@
                 <h6 class="text-white fw-bold mb-3">Quick Links</h6>
                 <ul class="list-unstyled small">
                     <li class="mb-2"><a href="#services" class="footer-link">Services</a></li>
+                    <li class="mb-2"><a href="#transformations" class="footer-link">Results</a></li>
                     <li class="mb-2"><a href="#estimator" class="footer-link">Cost Estimator</a></li>
                     <li class="mb-2"><a href="#dentists" class="footer-link">Our Dentists</a></li>
-                    <li class="mb-2"><a href="#faq" class="footer-link">FAQ</a></li>
                     <li class="mb-2"><a href="#contact" class="footer-link">Contact</a></li>
-                    <li class="mb-2"><a href="<%=request.getContextPath()%>/login.jsp" class="footer-link">Staff Login</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -959,7 +1062,6 @@
     </div>
 </footer>
 
-<!-- Floating Back to Top Button -->
 <button type="button" id="backToTopBtn" class="btn btn-clinic btn-back-to-top" aria-label="Back to Top">
     <i class="bi bi-arrow-up"></i>
 </button>
@@ -968,9 +1070,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const consultationFee = 500.00;
+    const consultationFee = 1000.00;
 
-    // 1. Back to Top Button
     const backToTopBtn = document.getElementById('backToTopBtn');
     window.addEventListener('scroll', function () {
         if (window.scrollY > 300) {
@@ -983,7 +1084,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 2. Interactive Cost Estimator
     const estimatorSelect = document.getElementById('estimatorSelect');
     const calcServicesCost = document.getElementById('calcServicesCost');
     const calcTotalCost = document.getElementById('calcTotalCost');
@@ -1024,7 +1124,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 3. Quick-Book Triggers
     document.querySelectorAll('.quick-book-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const serviceName = this.getAttribute('data-service');
@@ -1043,7 +1142,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 4. Real-time Service Search
     const serviceSearchInput = document.getElementById('serviceSearchInput');
     const clearServiceSearch = document.getElementById('clearServiceSearch');
     const serviceItems = document.querySelectorAll('.service-item-wrapper');
@@ -1063,7 +1161,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 5. FAQ Expand/Collapse
     const expandFaqBtn = document.getElementById('expandFaqBtn');
     const collapseFaqBtn = document.getElementById('collapseFaqBtn');
     const faqCollapses = document.querySelectorAll('#publicFaq .accordion-collapse');
@@ -1078,7 +1175,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 6. Character Counter
     const charCounter = document.getElementById('charCounter');
     function updateCharCounter() {
         if (contactMessage && charCounter) {
@@ -1088,6 +1184,94 @@ document.addEventListener('DOMContentLoaded', function () {
     if (contactMessage) {
         contactMessage.addEventListener('input', updateCharCounter);
         updateCharCounter();
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    const contactAlert = document.getElementById('contactAlertPlaceholder');
+    const submitBtn = document.getElementById('submitContactBtn');
+    const spinner = document.getElementById('contactSpinner');
+    const btnIcon = document.getElementById('contactBtnIcon');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            spinner.classList.remove('d-none');
+            btnIcon.classList.add('d-none');
+            submitBtn.disabled = true;
+
+            const formData = new URLSearchParams(new FormData(contactForm));
+
+            fetch('<%=request.getContextPath()%>/PublicContactServlet', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    contactAlert.innerHTML = `
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i> Thank you! Your message has been sent successfully.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`;
+                    contactForm.reset();
+                    updateCharCounter();
+                } else {
+                    throw new Error('Server returned an error');
+                }
+            })
+            .catch(error => {
+                contactAlert.innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Failed to send message. Please call us directly.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>`;
+            })
+            .finally(() => {
+                spinner.classList.add('d-none');
+                btnIcon.classList.remove('d-none');
+                submitBtn.disabled = false;
+            });
+        });
+    }
+
+    window.goToStep = function(step) {
+        document.getElementById('bookingStep1').classList.add('d-none');
+        document.getElementById('bookingStep2').classList.add('d-none');
+        document.getElementById('bookingStep3').classList.add('d-none');
+
+        document.getElementById('stepInd1').classList.remove('active');
+        document.getElementById('stepInd2').classList.remove('active');
+        document.getElementById('stepInd3').classList.remove('active');
+
+        document.getElementById('bookingStep' + step).classList.remove('d-none');
+        for (let i = 1; i <= step; i++) {
+            document.getElementById('stepInd' + i).classList.add('active');
+        }
+    };
+
+    const wizardForm = document.getElementById('wizardBookingForm');
+    if (wizardForm) {
+        wizardForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const service = document.getElementById('wizardServiceSelect').value;
+            const doctor = document.getElementById('wizardDentistSelect').value;
+            const date = document.getElementById('wizardDate').value;
+            const time = document.getElementById('wizardTime').value;
+            const name = document.getElementById('wizardName').value;
+            const phone = document.getElementById('wizardPhone').value;
+
+            const message = `Booking Request:\n- Service: ${service || 'General Consultation'}\n- Doctor: ${doctor || 'Any'}\n- Date: ${date}\n- Slot: ${time}`;
+            
+            document.querySelector('[name="fullName"]').value = name;
+            document.querySelector('[name="phone"]').value = phone;
+            contactMessage.value = message;
+            
+            const modalEl = document.getElementById('quickBookingModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
     }
 });
 </script>
