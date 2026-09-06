@@ -599,7 +599,7 @@
                         </div>
                         <div class="d-flex justify-content-between text-muted small mb-2">
                             <span>Standard Consultation Fee:</span>
-                            <span id="calcConsultFee" class="fw-semibold">Rs. 1,000.00</span>
+                            <span id="calcConsultFee" class="fw-semibold">Rs. 500.00</span>
                         </div>
                         <hr class="my-2 border-secondary-subtle">
                         <div class="d-flex justify-content-between fs-5 fw-bold text-dark">
