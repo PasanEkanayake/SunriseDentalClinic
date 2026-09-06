@@ -968,7 +968,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const consultationFee = 1000.00;
+    const consultationFee = 500.00;
 
     // 1. Back to Top Button
     const backToTopBtn = document.getElementById('backToTopBtn');
