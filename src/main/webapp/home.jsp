@@ -1070,7 +1070,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const consultationFee = 1000.00;
+    const consultationFee = 500.00;
 
     const backToTopBtn = document.getElementById('backToTopBtn');
     window.addEventListener('scroll', function () {
