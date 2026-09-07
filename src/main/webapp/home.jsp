@@ -671,7 +671,7 @@
                         <hr class="my-2 border-secondary-subtle">
                         <div class="d-flex justify-content-between fs-5 fw-bold text-dark">
                             <span>Estimated Total:</span>
-                            <span id="calcTotalCost" style="color: var(--primary-blue);">Rs. 1,000.00</span>
+                            <span id="calcTotalCost" style="color: var(--primary-blue);">Rs. 0.00</span>
                         </div>
                     </div>
 
